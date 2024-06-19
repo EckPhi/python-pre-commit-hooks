@@ -1,0 +1,48 @@
+- id: check-header-guards
+  name: Check C-Header Guards
+  description: Check that C-Header Guards match the Google-style guide.
+  entry: check-header-guards
+  language: python
+  files: \.(h|hh|H|hp|hxx|hpp|HPP|h\+\+|tcc)$
+  stages: [commit, push, manual]
+
+- id: check-extern-c
+  name: Check for extern c in C-Headers
+  description: Check that C-Headers include a extern C tag.
+  entry: check-extern-c
+  language: python
+  files: \.(h|hh|H|hp|hxx|hpp|HPP|h\+\+|tcc)$
+  stages: [commit, push, manual]
+
+- id: check-legal
+  name: Check for copyright and license notices
+  description: Add/update copyright and license notices.
+  entry: check-legal
+  language: python
+  files: \.(h|hh|H|hp|hxx|hpp|HPP|h\+\+|tcc|cc|cp|cxx|cpp|CPP|c\+\+|C)$
+  stages: [commit, push, manual]
+
+- id: check-file-sections
+  name: Check for existence of file sections
+  description: Add/update file sections.
+  entry: check-file-sections
+  language: python
+  files: \.(h|hh|H|hp|hxx|hpp|HPP|h\+\+|tcc|cc|cp|cxx|cpp|CPP|c\+\+|C)$
+  stages: [commit, push, manual]
+
+- id: check-filename
+  name: Check for correct file name
+  description: Check that the file name matches the Google-style guide.
+  entry: check-filename
+  language: python
+  stages: [commit, push, manual]
+  types: [file, text, directory]
+
+- id: docker-iwyu
+  name: Check for include-what-you-use
+  description: Check that the include-what-you-use tool has been run.
+  entry: docker.io/eckphi/pre-commit-iwyu:0.2
+  language: docker_image
+  files: \.(h|hh|H|hp|hxx|hpp|HPP|h\+\+|tcc|cc|cp|cxx|cpp|CPP|c\+\+|C)$
+  stages: [commit, push, manual]
+  require_serial: true
