@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import argparse
+import html
 import re
 import subprocess
 from datetime import datetime
@@ -221,6 +222,7 @@ def main(argv=None):
     elif not args.template:
         print("No license template provided")
         return 1
+    args.template = html.unescape(args.template)
     aliases = {}
     for alias in args.alias:
         pair = alias.split(":")
