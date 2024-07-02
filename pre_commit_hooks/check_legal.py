@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+"""Script to check files for a license-notice."""
 from __future__ import annotations
 
 import argparse
@@ -100,7 +101,7 @@ def get_authors(filename, aliases, args):
 
 
 def full_notice(filename, aliases, args):
-    result = ["/*"]
+    result = []
     if args.preamble:
         result += args.preamble.format(
             project_name=args.programme_name,
@@ -118,9 +119,8 @@ def full_notice(filename, aliases, args):
             authors=get_authors(filename, aliases, args),
             license_notice=args.license_notice,
         ).splitlines()
-    result.append("/")
-    string = "\n *".join(result)
-    return string
+    string = f"\n{args.line_start}".join(result)
+    return f"{args.comment_start}\n{string}\n{args.comment_end}"
 
 
 def add_comment(content, filename, aliases, full_notice):
@@ -210,9 +210,24 @@ def main(argv=None):
     parser.add_argument(
         "--dir",
         action="store_true",
-        help="The root directory of the ",
+        help="The root directory of the Project.",
         dest="_dir",
         default=".",
+    )
+    parser.add_argument(
+        "--comment-start",
+        help="The start of the comment block.",
+        default="/*",
+    )
+    parser.add_argument(
+        "--comment-end",
+        help="The end of the comment block.",
+        default=" */",
+    )
+    parser.add_argument(
+        "--line-start",
+        help="Start of each line new line in the comment block.",
+        default=" *",
     )
     args = parser.parse_args(argv)
     if args.license_notice == "gpl3+":
