@@ -22,6 +22,7 @@ import git
 all_header_guards = collections.defaultdict(list)
 pragma_once = re.compile("^#pragma once$")
 
+
 def get_header_guard(project_path, header_file):
     """A header guard can either be a #pragma once, or else a matching set of
         #ifndef PATH_TO_FILE_H_
@@ -45,8 +46,11 @@ def get_header_guard(project_path, header_file):
             + "_"
         )
 
-    header_guard = dir_guard([os.path.basename(project_path)]+
-        list(pathlib.Path(os.path.relpath(header_file, project_path)).parts[1:]),
+    header_guard = dir_guard(
+        [os.path.basename(project_path)]
+        + list(
+            pathlib.Path(os.path.relpath(header_file, project_path)).parts[1:]
+        ),
     )
 
     return header_guard
@@ -122,6 +126,7 @@ def check_file(project_path, header_file):
     )
     return False
 
+
 def add_header_guard(project_path, header_file):
     # Only check .h files
     if header_file[-2:] != ".h":
@@ -130,9 +135,12 @@ def add_header_guard(project_path, header_file):
     with open(header_file) as f:
         content = f.read()
     lines = content.split("\n")
-    top = [f"#ifndef {header_guard}",
-           f"#define {header_guard}",""]
-    bottom = ["",f"#endif  // {header_guard}", ""]
+    top = [
+        f"#ifndef {header_guard}",
+        f"#define {header_guard}",
+        "",
+    ]
+    bottom = ["", f"#endif  // {header_guard}", ""]
     lines += bottom
     if len(lines) > 0 and "/*" in lines[0]:
         # find end of comment block
@@ -205,7 +213,7 @@ def main(argv=None):
     parser.add_argument(
         "--fix",
         action="store_true",
-        help='Add missing include guards to files.',
+        help="Add missing include guards to files.",
         default=False,
     )
     args = parser.parse_args(argv)
@@ -242,7 +250,7 @@ if __name__ == "__main__":
                 "tests/a.c",
                 "tests/b.c",
                 "tests/c.c",
-                "--fix"
+                "--fix",
             ],
         )
         != 1
