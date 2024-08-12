@@ -49,7 +49,7 @@ def get_header_guard(project_path, header_file):
     header_guard = dir_guard(
         [os.path.basename(project_path)]
         + list(
-            pathlib.Path(os.path.relpath(header_file, project_path)).parts[1:]
+            pathlib.Path(os.path.relpath(header_file, project_path)).parts[1:],
         ),
     )
 
