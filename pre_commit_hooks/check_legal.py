@@ -119,7 +119,7 @@ def full_notice(filename, aliases, args):
             authors=get_authors(filename, aliases, args),
             license_notice=args.license_notice,
         ).splitlines()
-    string = f"\n{args.line_start}".join(result)
+    string = args.line_start + f"\n{args.line_start}".join(result)
     return f"{args.comment_start}\n{string}\n{args.comment_end}"
 
 
@@ -238,6 +238,7 @@ def main(argv=None):
         print("No license template provided")
         return 1
     args.template = html.unescape(args.template)
+    args.copyright_string = html.unescape(args.copyright_string)
     aliases = {}
     for alias in args.alias:
         pair = alias.split(":")
