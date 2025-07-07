@@ -1,6 +1,5 @@
 #!/usr/bin/env python
-"""Script to check C headers for extern c.
-"""
+"""Script to check C headers for extern c."""
 from __future__ import annotations
 
 import argparse

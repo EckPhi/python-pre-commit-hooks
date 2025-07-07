@@ -1,6 +1,5 @@
 #!/usr/bin/env python
-"""Script to check C-header and C-source files for the correct file sections.
-"""
+"""Script to check C-header and C-source files for the correct file sections."""
 from __future__ import annotations
 
 import argparse
