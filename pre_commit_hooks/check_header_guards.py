@@ -7,6 +7,7 @@ The following file
     src/abc_xyz/xyz.h
 produces ABC_XYZ_XYZ_H_ as a header guard.
 """
+
 from __future__ import annotations
 
 import argparse
@@ -17,7 +18,6 @@ import re
 import sys
 
 import git
-
 
 all_header_guards = collections.defaultdict(list)
 pragma_once = re.compile("^#pragma once$")
