@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 """Script to check files for a license-notice."""
+
 from __future__ import annotations
 
 import argparse
